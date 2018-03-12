@@ -11,19 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('user.layouts.index');
-})->name('home');
-Route::get('/tt', function () {
-    return view('user.layouts.checkout');
-});
-Route::get('/ct', function () {
-    return view('user.layouts.product-details');
-});
-Route::get('/ds', function () {
-    return view('user.layouts.products');
-});
-
 Route::get('getImg', 'HomeController@getImg');
 
 Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
@@ -50,3 +37,18 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.', 'namespace' => 'Admin'], functi
         Route::resource('promotion', 'PromotionController');
     });
 });
+
+Route::get('/', [
+                        'as' => 'home',
+                        'uses' => 'User\HomeController@getHome'
+                        ]);
+
+Route::get('/category/{type}', [
+                        'as' => 'category',
+                        'uses' => 'User\HomeController@getCate'
+                        ]);
+
+Route::get('/product/{id}', [
+                        'as' => 'product',
+                        'uses' => 'User\HomeController@getProd'
+                        ]);

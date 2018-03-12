@@ -10,48 +10,48 @@
             <div class="product product-details clearfix">
                 <div class="col-md-6">
                     <div id="product-main-view">
+                        @foreach($prod_details as $pd)
+                            @php
+                                $img = $pd->images->first();
+                            @endphp
+                            @if (isset($img))
+                                {{Html::image('assets/img/'.$img->image)}}
+                            @endif
                         <div class="product-view">
-                            {{ Html::image('assets/img/main-product01.jpg', 'a picture') }}
+                            
                         </div>
-                        <div class="product-view">
-                            {{ Html::image('assets/img/main-product02.jpg', 'a picture') }}
-                        </div>
-                        <div class="product-view">
-                            {{ Html::image('assets/img/main-product03.jpg', 'a picture') }}
-                        </div>
-                        <div class="product-view">
-                            {{ Html::image('assets/img/main-product04.jpg', 'a picture') }}
-                        </div>
-                    </div>
-                    <div id="product-view">
-                        <div class="product-view">
-                            {{ Html::image('assets/img/thumb-product01.jpg', 'a picture') }}
-                        </div>
-                        <div class="product-view">
-                            {{ Html::image('assets/img/thumb-product02.jpg', 'a picture') }}
-                        </div>
-                        <div class="product-view">
-                            {{ Html::image('assets/img/thumb-product03.jpg', 'a picture') }}
-                        </div>
-                        <div class="product-view">
-                            {{ Html::image('assets/img/thumb-product04.jpg', 'a picture') }}
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="product-body">
                         <div class="product-label">
-                            <span class="sale">-20%</span>
+                            @php
+                                $km = $pd->promotionDetail;
+                            @endphp
+                                @if ($km)
+                                    <span class="sale">
+                                        {{$km->percent}} %
+                                    </span>
+                                @endif
                         </div>
-                        <h2 class="product-name">Product Name Goes Here</h2>
-                        <h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
+                        <h2 class="product-name">{{$pd->name}}</h2>
+                        {{ ($km) ? ceil($pd->price * (100 - $km->percent) / 100) : $pd->price}} @lang('custom.common.currency') 
+                                    @if ($km)
+                                        <del class="product-old-price">{{ $pd->price }} @lang('custom.common.currency')</del>
+                                    @endif
                         <div>
                             <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o empty"></i>
+                                @if ($avgVote >= 0)
+                                    @for ($i = 0; $i < $avgVote; $i++)
+                                        @if ($i < $avgVote)
+                                            <i class="fa fa-star"></i>
+                                        @endif
+                                    @endfor
+                                    @for ($i = $avgVote; $i < 5; $i++)
+                                        <i class="fa fa-star-o empty"></i>
+                                    @endfor
+                                @endif
                             </div>
                             {{ Html::link('#','3 Review(s) / Add Review')}}
                         </div>
@@ -87,10 +87,18 @@
                         </ul>
                         <div class="tab-content">
                             <div id="tab1" class="tab-pane fade in active">
-                                <p>Description</p>
+                                <p>
+                                    @foreach($prod_details as $pd)
+                                    {{$pd->description}}
+                                    @endforeach
+                                </p>
                             </div>
                             <div id="tab2" class="tab-pane fade in active">
-                                <p>Product Deltails</p>
+                                <p>
+                                    @foreach($prod_details as $pd)
+                                    {{$pd->amount}}
+                                    @endforeach
+                                </p>
                             </div>
                             <div id="tab3" class="tab-pane fade in">
 

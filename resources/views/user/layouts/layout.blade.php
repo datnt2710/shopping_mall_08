@@ -40,8 +40,8 @@
                             <ul class="custom-menu">
                                 <li>
                                     {!! html_entity_decode(
-                                        Html::linkRoute(
-                                            'change-language',
+                                        Html::link(
+                                            'change-languag',
                                             Html::image('images/en.png') . Lang::get('custom.common.en'),
                                             [
                                                 'lang' => 'en'
@@ -54,7 +54,7 @@
                                 </li>
                                 <li>
                                     {!! html_entity_decode(
-                                        Html::linkRoute(
+                                        Html::link(
                                             'change-language', 
                                             Html::image('images/vi.png') . Lang::get('custom.common.vi'), 
                                             [
@@ -232,11 +232,12 @@
                         <li>
                             {{ HTML::link('#', 'Home')}}
                         </li>
+                        @foreach($cates as $cate)
                         <li class="dropdown default-dropdown">
                             {!! html_entity_decode(
                                 Html::link(
                                     null, 
-                                    Lang::get('custom.common.category') . '<i class="fa fa-caret-down"></i>',
+                                    $cate->name . ' <i class="fa fa-caret-down"></i>',
                                     [
                                         'class' => 'dropdown-toggle',
                                         'data-toggle' => 'dropdown',
@@ -245,12 +246,14 @@
                                 )
                             ) !!}
                             <ul class="custom-menu">
-                                <li>{{ HTML::link('#', 'Danh mục 1')}}</li>
-                                <li>{{ HTML::link('#', 'Danh mục 2')}}</li>
-                                <li>{{ HTML::link('#', 'Danh mục 3')}}</li>
-                                <li>{{ HTML::link('#', 'Danh mục 4')}}</li>
+                            @foreach($sub_cates as $sub_cate)
+                                @if( $sub_cate->parent_id == $cate->id)
+                                <li>{{ HTML::linkRoute('category',$sub_cate->name,$sub_cate->id)}}</li>
+                                @endif
+                            @endforeach
                             </ul>
                         </li>
+                        @endforeach
                     </ul>
                 </div>
                 <!-- menu nav -->

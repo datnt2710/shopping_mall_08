@@ -135,6 +135,9 @@ return [
         'sortby' => 'Sort By : ',
         'price' => 'Price',
         'page' => 'Page : ',
+        '' => '',
+        '' => '',
+        '' => '',
     ],
 
     'validation' => [
@@ -157,7 +160,7 @@ return [
     ],
 
     'form' => [
-        'confirm_delete' => 'Are you want to delete this item?'
+        'confirm_delete' => 'Are you want to delete this item?',
     ],
     
 ];

@@ -135,6 +135,9 @@ return [
         'sortby' => 'Sắp xếp theo : ',
         'price' => 'Giá',
         'page' => 'Trang : ',
+        '' => '',
+        '' => '',
+        '' => '',
     ],
 
     'validation' => [
@@ -157,7 +160,7 @@ return [
     ],
 
     'form' => [
-        'confirm_delete' => 'Bạn có muốn xóa mục này?'
+        'confirm_delete' => 'Bạn có muốn xóa mục này?',
     ],
 
 ];

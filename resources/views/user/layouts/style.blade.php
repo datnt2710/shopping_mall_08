@@ -16,3 +16,4 @@
     
     <!-- Custom stlylesheet -->
     {{ Html::style('assets/css/style.css') }}
+    

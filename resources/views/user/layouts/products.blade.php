@@ -63,24 +63,40 @@
                     <div id="store">
                         <!-- row -->
                         <div class="row">
-                    
+                            @foreach($product_in_cates as $pc)
                             <!-- Product Single -->
                             <div class="col-md-4 col-sm-6 col-xs-6">
                                 <div class="product product-single">
                                     <div class="product-thumb">
-                                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i>{!!Lang::get('custom.common.view')!!}</button>
-                                        {{Html::image('assets/img/product2.jpg')}}
+                                        {!! html_entity_decode(HTML::linkRoute('product', '<button class="main-btn quick-view"><i class="fa fa-search-plus"></i>'.Lang::get('custom.common.view').'</button>', $pc->id)) !!}
+                                        @php
+                                            $img = $pc->images->first();
+                                        @endphp
+                                        @if (isset($img))
+                                        {{Html::image('assets/img/'.$img->image)}}
+                                        @endif
                                     </div>
                                     <div class="product-body">
-                                        <h3 class="product-price">$32.50</h3>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o empty"></i>
+                                        <div class="product-label">
+                                            @php
+                                                $km = $pc->promotionDetail;
+                                            @endphp
+                                                @if ($km)
+                                                    <span class="sale">
+                                                        {{$km->percent}} %
+                                                    </span>
+                                                @endif
                                         </div>
-                                        <h2 class="product-name">{{ HTML::link('#', 'Sản Phẩm 1')}}</h2>
+                                        <h3 class="product-price">
+                                            {{ ($km) ? ceil($pc->price * (100 - $km->percent) / 100) : $pc->price}} @lang('custom.common.currency') 
+                                            @if ($km)
+                                                <del class="product-old-price">{{ $pc->price }} @lang('custom.common.currency')</del>
+                                            @endif
+                                        </h3>
+                                        <div class="product-rating">
+                                             
+                                        </div>
+                                        <h2 class="product-name">{{ HTML::linkRoute('product', $pc->name, $pc->id)}}</h2>
                                         <div class="product-btns">
                                             <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                             ~-~-~-~
@@ -92,7 +108,7 @@
                             <!-- /Product Single -->
 
                             <div class="clearfix visible-sm visible-xs"></div>
-
+                            @endforeach
                         </div>
                         <!-- /row -->
                     </div>

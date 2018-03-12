@@ -5,3 +5,4 @@
     {!! Html::script('assets/js/nouislider.min.js') !!}
     {!! Html::script('assets/js/jquery.zoom.min.js') !!}
     {!! Html::script('assets/js/main.js') !!}
+    
